@@ -1,0 +1,35 @@
+/*@!Encoding:1252*/
+includes
+{
+  
+  #include "comon-file.can"
+}
+
+variables
+{
+ 
+     message Message_1 ecu_msg1;
+    //testable parameters
+     char plainText[16] = "This is";
+     char key1[16] = "This is";
+}
+
+on message Message_Skey
+{
+  //ECU1 receives broadcasted key
+  ecu_msg1.Signal_1 = this.Signal_sKey;
+  output(ecu_msg1);
+  write("ECU1: has received recent key %d",ecu_msg1.Signal_1);
+  //write("The value of the array is %x", s[2]);
+  //trial encryption
+  //keyExpansion(key1,expandedKey);
+  //AESEncryption(plainText, expandedKey, cipher);
+  //write("The cipher is %02x", cipher);
+  //trial decryption
+  //AESDecryption(cipher, expandedKey, outPut);
+  //write("The plaintext is %02x", outPut);
+  //send message to ECU2
+  ecu_msg1.Signal_1 += 1;
+  output(ecu_msg1);
+}
+
