@@ -1,0 +1,23 @@
+includes
+{
+  
+  #include "comon-file.can"
+}
+
+variables
+{
+     message Message_2 ecu_msg2;
+}
+
+on message Message_Skey
+{
+  //when message from Secure ECU is broadcasts it receives the broadcast key
+  ecu_msg2.Signal_2 = this.Signal_sKey;
+  write("ECU2: has received recent key %d",ecu_msg2.Signal_2);
+  output(ecu_msg2);
+}
+on message Message_1
+{
+  ecu_msg2.Signal_2 = this.Signal_1;
+  write("Content of message broadcasted by ECU1 is %d",ecu_msg2.Signal_2);
+}
